@@ -1,2 +1,2 @@
-# glo_react /n
+# glo_react 
 Старт курса "Базовый React"
