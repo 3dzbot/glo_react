@@ -38,7 +38,6 @@ input[type="button"], button{
     cursor: pointer;
     color: #fff;
     border-radius: 0;
-    font-weight: bold;
     border: none;
     background: transparent;
 }

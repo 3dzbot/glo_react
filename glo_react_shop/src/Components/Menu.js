@@ -13,16 +13,19 @@ const SectionMenu = styled.section`
 padding: 30px;
 `;
 
-export const Menu = () => (
+export const Menu = ({setOpenItem}) => (
 <MenuStyled>
     <BannerPage src={'./banners/banner.png'} alt={'banner'}></BannerPage>
     <SectionMenu>
         <h2>Burgers</h2>
-        <ListItem itemList={dbMenu.burger}/>
+        <ListItem itemList={dbMenu.burger}
+                setOpenItem={setOpenItem}
+        />
     </SectionMenu>
     <SectionMenu>
         <h2>Drinks</h2>
-        <ListItem itemList={dbMenu.other}/>
+        <ListItem itemList={dbMenu.other}
+        setOpenItem={setOpenItem}/>
     </SectionMenu>
 </MenuStyled>
 );
