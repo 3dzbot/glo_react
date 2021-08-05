@@ -7,8 +7,17 @@ const Button = styled.button`
     background-color: #299B01;
     color: #fff;
     font-size: 21px;
-    margin-bottom: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #fff;
     margin-top: auto;
+    transition-property: color, background-color, border-color;
+    transition-duration: .2s;
+    &:hover {
+        background-color: #fff;
+        color: #299B01;
+        border-color: #299B01;
+    }
 `;
 
 export const ButtonAdd = () => (
