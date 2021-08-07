@@ -1,7 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 
-const Button = styled.button`
+export const ButtonAdd = styled.button`
     width: 250px;
     height: 65px;
     background-color: #299B01;
@@ -19,9 +18,3 @@ const Button = styled.button`
         border-color: #299B01;
     }
 `;
-
-export const ButtonAdd = () => (
-    <Button>
-        Добавить
-    </Button>
-);
