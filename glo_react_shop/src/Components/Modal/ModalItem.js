@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ButtonAdd } from '../Style/ButtonAdd';
+import { CountItem } from './CountItem';
+import { useCount } from '../Hooks/useCount';
 
 const Overlay = styled.div`
     position: fixed;
@@ -47,7 +49,16 @@ const TitleElem = styled.span`
     font-size: 30px;
 `;
 
+const TotalPriceItem = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
+
+export const totalPriceItems = order => order.price * order.count;
+
 export const ModalItem = ({openItem, setOpenItem, orders, setOrders}) => {
+
+    const counter = useCount()
 
     const  closeModal = e => {
         if(e.target.id === 'overlay'){
@@ -56,8 +67,11 @@ export const ModalItem = ({openItem, setOpenItem, orders, setOrders}) => {
     }
 
     const order = {
-        ...openItem
+        ...openItem,
+        count: counter.count
     };
+
+    
     
     /** добавляем к текущему заказу элементы */
 
@@ -77,6 +91,11 @@ export const ModalItem = ({openItem, setOpenItem, orders, setOrders}) => {
                     <TitleElem>{openItem.name}</TitleElem>
                     <TitleElem>{openItem.price.toLocaleString('ru-RU',{style:'currency', currency:'RUB'})}</TitleElem>
                 </TitleWrap>
+                <CountItem {...counter} />
+                <TotalPriceItem>
+                    <span>Цена:</span>
+                    <span>{totalPriceItems(order).toLocaleString('ru-RU',{style:'currency', currency:'RUB'})}</span>
+                </TotalPriceItem>
                 <ButtonAdd onClick={addToOrder}>Добавить</ButtonAdd>
             </Modal>
         </Overlay>

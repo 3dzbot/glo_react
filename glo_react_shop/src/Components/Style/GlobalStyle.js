@@ -30,6 +30,13 @@ h1,h2,h3 {
     padding: 0;
     margin: 0;
 }
+input {
+    appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
 input[type="button"], button{
     display: inline-flex;
     align-items: center;
@@ -40,6 +47,7 @@ input[type="button"], button{
     border-radius: 0;
     border: none;
     background: transparent;
+    font: inherit;
 }
 p {
     padding: 0;
