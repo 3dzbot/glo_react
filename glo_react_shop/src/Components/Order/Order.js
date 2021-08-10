@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { ButtonAdd } from '../Style/ButtonAdd';
 import { OrderListItem } from './OrderListItem';
-import { totalPriceItems } from '../Modal/ModalItem';
+import { totalPriceItems } from '../Functions/secondaryFunctions';
 import { parcePrice } from '../Functions/secondaryFunctions';
 
 const OrderStyled = styled.section`
@@ -11,7 +11,8 @@ const OrderStyled = styled.section`
     left: 0;
     bottom: 0;
     background: #fff;
-    min-width: 380px;
+    width: 380px;
+    max-width: 100%;
     box-shadow: 3px 4px 5px rgba(0,0,0,.25);
     padding: 20px;
     display: flex;
@@ -49,7 +50,9 @@ const TotalPrice = styled.span`
 
 export const Order = ({ orders }) => {
 
-    const total = orders.reduce((result, order) => totalPriceItems(order) + result, 0)
+    const total = orders.reduce((result, order) => totalPriceItems(order) + result, 0);
+
+    const tatalCounter = orders.reduce((result, order) => order.count + result, 0);
 
     return (
         <OrderStyled>
@@ -63,7 +66,7 @@ export const Order = ({ orders }) => {
             </OrderContent>
             <Total>
                 <span>Итого</span>
-                <span>5</span>
+                <span>{tatalCounter}</span>
                 <TotalPrice>{parcePrice(total)}</TotalPrice>
             </Total>
             <ButtonAdd>Оформить</ButtonAdd>
