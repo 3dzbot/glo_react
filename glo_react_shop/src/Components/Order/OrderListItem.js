@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import trashImage from '../../image/icons/trash.svg'
 import { totalPriceItems } from '../Functions/secondaryFunctions';
@@ -7,6 +7,7 @@ import { parcePrice } from '../Functions/secondaryFunctions';
 const OrderItemStyled = styled.li`
     display: flex;
     margin: 15px 0;
+    cursor: pointer;
 `;
 
 const ItemName = styled.span`
@@ -53,10 +54,11 @@ export const OrderListItem = ({ order, index, deleteItem, setOpenItem }) => {
                 .map(item=>item.name)
                 .join(', ');
 
+    const refDeleteBtn = useRef(null);
+
     return (
-        <OrderItemStyled onClick={()=>{
-            console.log(order);
-            setOpenItem({...order, index})
+        <OrderItemStyled onClick={(e)=>{
+            e.target !== refDeleteBtn.current &&  setOpenItem({...order, index})
         }}>
         <ItemNameWrapper>
             <ItemName>{order.name} {order.choice}</ItemName>
@@ -66,7 +68,7 @@ export const OrderListItem = ({ order, index, deleteItem, setOpenItem }) => {
         </ItemNameWrapper>
         <span>{order.count}</span>
         <ItemPrice>{ parcePrice(totalPriceItems(order)) }</ItemPrice>
-        <TrashBtn onClick={()=>deleteItem(index)} />
+        <TrashBtn ref={refDeleteBtn} onClick={()=>deleteItem(index)} />
     </OrderItemStyled>
     )
 };
