@@ -4,13 +4,16 @@ import { useState } from 'react';
 чтобы вернуть обьект "кудрявые скобки" оборачиваем круглыми скобками
 чтоб скрипт не подумал что это блок кода
 */
-const getTopping = toppings => toppings ? toppings.map(item => ({
+const getTopping = toppings => toppings.map(item => ({
     name: item, 
     checked: false
-})) : [];
+}));
 
 export function useToppings(openItem) {
-    const [ toppings, setToppings ] = useState(getTopping(openItem.toppings));
+    const readyTopping = openItem.topping ? openItem.topping :
+                openItem.toppings ? getTopping(openItem.toppings) : [];
+
+    const [ toppings, setToppings ] = useState(readyTopping);
 
     const checkToppings = index => {
         setToppings(toppings.map((item, i) => {

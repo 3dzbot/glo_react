@@ -48,13 +48,16 @@ const ItemTopping = styled.span`
     margin-right: 4px;
 `;
 
-export const OrderListItem = ({ order, index, deleteItem }) => {
+export const OrderListItem = ({ order, index, deleteItem, setOpenItem }) => {
     const topping = order.topping.filter(item=>item.checked)
                 .map(item=>item.name)
                 .join(', ');
 
     return (
-        <OrderItemStyled onClick={()=>console.log(order)}>
+        <OrderItemStyled onClick={()=>{
+            console.log(order);
+            setOpenItem({...order, index})
+        }}>
         <ItemNameWrapper>
             <ItemName>{order.name} {order.choice}</ItemName>
             <ItemToppings>

@@ -65,6 +65,7 @@ export const ModalItem = ({openItem, setOpenItem, orders, setOrders}) => {
     const counter = useCount();
     const toppings = useToppings(openItem);
     const choices = useChoices(openItem);
+    const isEdit = openItem.index > -1;
 
     const  closeModal = e => {
         if(e.target.id === 'overlay'){
@@ -78,6 +79,12 @@ export const ModalItem = ({openItem, setOpenItem, orders, setOrders}) => {
         topping: toppings.toppings,
         choice: choices.choice,
     };
+
+    const editOrder = () => {
+        const newOrders = [...orders];
+        newOrders[openItem.index] = order;
+        setOrders(newOrders);
+    }
 
     
     
@@ -93,7 +100,7 @@ export const ModalItem = ({openItem, setOpenItem, orders, setOrders}) => {
     */
     return (
         <Overlay id="overlay" onClick={closeModal}>
-            <Modal>
+            <Modal onClick={()=>console.log({...toppings})}>
                 <Banner img={openItem.img} />
                 <TitleWrap>
                     <TitleElem>{openItem.name}</TitleElem>
@@ -107,7 +114,7 @@ export const ModalItem = ({openItem, setOpenItem, orders, setOrders}) => {
                     <span>{parcePrice(totalPriceItems(order))}</span>
                 </TotalPriceItem>
                 <ButtonAdd 
-                    onClick={addToOrder}
+                    onClick={isEdit ? editOrder: addToOrder}
                     disabled={order.choices && !order.choice}
                     >Добавить</ButtonAdd>
             </Modal>
