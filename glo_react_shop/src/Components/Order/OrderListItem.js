@@ -48,24 +48,22 @@ const ItemTopping = styled.span`
     margin-right: 4px;
 `;
 
-export const OrderListItem = ({ order }) => {
+export const OrderListItem = ({ order, index, deleteItem }) => {
     const topping = order.topping.filter(item=>item.checked)
                 .map(item=>item.name)
                 .join(', ');
 
-    console.log(order );
-
     return (
         <OrderItemStyled onClick={()=>console.log(order)}>
         <ItemNameWrapper>
-            <ItemName>{order.name}</ItemName>
+            <ItemName>{order.name} {order.choice}</ItemName>
             <ItemToppings>
                 {topping && <ItemTopping>{topping}</ItemTopping>}
         </ItemToppings>
         </ItemNameWrapper>
         <span>{order.count}</span>
         <ItemPrice>{ parcePrice(totalPriceItems(order)) }</ItemPrice>
-        <TrashBtn />
+        <TrashBtn onClick={()=>deleteItem(index)} />
     </OrderItemStyled>
     )
 };
