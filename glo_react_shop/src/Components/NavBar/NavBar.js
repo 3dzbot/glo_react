@@ -32,16 +32,48 @@ const ImgLogo = styled.img`
     width: 50px;
 `;
 
-const Button = styled.button`
+const Login = styled.button`
     flex-direction: column;
 `;
 
-export const NavBar = () => (
+const User = styled.div`
+    display: flex;
+    align-items: center;
+    text-align: center;
+`;
+
+const LogOut = styled.span`
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-right: 30px;
+`;
+
+const Figure = styled.figure`
+    margin: 0 30px;
+`;
+
+export const NavBar = ({ authentication, logIn, logOut }) => (
     <NavBarStyled>
         <Logo>
-            <ImgLogo src={logoImg} alt="logo"/>
+            <ImgLogo src={logoImg} alt="logo" />
             <H1>zDonald's</H1>
         </Logo>
-        <Button><img src={userImg} alt="Кнопка входа"/><span>войти</span></Button>
+        {authentication ?
+            <User>
+                <Figure>
+                    <img src={userImg} alt={authentication.displayName} />
+                    <figcaption>{authentication.displayName}</figcaption>
+                </Figure>
+                <LogOut title="Кнопка выхода" onClick={logOut}>X</LogOut>
+            </User> :
+            <Login onClick={logIn}>
+                <Figure>
+                    <img src={userImg} alt="Кнопка входа" />
+                    <figcaption>войти</figcaption>
+                </Figure>
+            </Login>
+        }
+
     </NavBarStyled>
 );

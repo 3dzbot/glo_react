@@ -48,7 +48,7 @@ const TotalPrice = styled.span`
     margin-left: 20px;
 `;
 
-export const Order = ({ orders, setOrders, setOpenItem }) => {
+export const Order = ({ orders, setOrders, setOpenItem, authentication, logIn }) => {
 
     const deleteItem = index => {
         const newOrders = [...orders];
@@ -64,24 +64,28 @@ export const Order = ({ orders, setOrders, setOpenItem }) => {
         <OrderStyled>
             <OrderTitle>Ваш заказ</OrderTitle>
             <OrderContent>
-                { orders.length ? 
-                <OrderList>
-                    {orders.map( (order, index) => <OrderListItem 
-                        key={index} 
-                        order={ order }
-                        deleteItem={deleteItem} 
-                        index={index}
-                        setOpenItem={setOpenItem}
+                {orders.length ?
+                    <OrderList>
+                        {orders.map((order, index) => <OrderListItem
+                            key={index}
+                            order={order}
+                            deleteItem={deleteItem}
+                            index={index}
+                            setOpenItem={setOpenItem}
                         />)}
-                </OrderList> : 
-                <EmptyList>Список заказа пуст</EmptyList>}
+                    </OrderList> :
+                    <EmptyList>Список заказа пуст</EmptyList>}
             </OrderContent>
             <Total>
                 <span>Итого</span>
                 <span>{tatalCounter}</span>
                 <TotalPrice>{parcePrice(total)}</TotalPrice>
             </Total>
-            <ButtonAdd>Оформить</ButtonAdd>
+            {authentication ?
+                <ButtonAdd>Оформить</ButtonAdd> :
+                <ButtonAdd onClick={logIn}>Авторизируйтесь</ButtonAdd>
+            }
+
         </OrderStyled>
     )
 }
