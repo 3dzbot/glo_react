@@ -9,18 +9,17 @@ export function useAuth(authFirebase) {
     const logIn = () => auth.signInWithPopup(provider);
 
     const logOut = () => auth.signOut()
-        .catch(err => console.error(err))
+        .catch(err => console.error(err));
 
     useEffect(() => {
         auth.onAuthStateChanged(user => {
-            console.log(user);
             if (user) {
                 setAuthentication(user);
             } else {
                 setAuthentication(null);
             }
         })
-    }, [authentication]);
+    }, [auth, authentication]);
 
     return { authentication, logIn, logOut };
 }

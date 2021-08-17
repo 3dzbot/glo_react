@@ -101,7 +101,7 @@ export const ModalItem = ({openItem, setOpenItem, orders, setOrders}) => {
     */
     return (
         <Overlay id="overlay" onClick={closeModal}>
-            <Modal onClick={()=>console.log({...toppings})}>
+            <Modal>
                 <Banner img={openItem.img} />
                 <TitleWrap>
                     <TitleElem>{openItem.name}</TitleElem>
