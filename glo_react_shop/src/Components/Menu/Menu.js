@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import dbMenu from '../DBMenu';
 import { ListItem } from './ListItem';
 import { BannerPage } from './BannerPage';
+import { useFetsh } from '../Hooks/useFetch';
 
 const MenuStyled = styled.main`
     background-color: #ccc;
@@ -14,19 +14,29 @@ const SectionMenu = styled.section`
 padding: 30px;
 `;
 
-export const Menu = ({setOpenItem}) => (
-<MenuStyled>
-    <BannerPage src={'./banners/banner.png'} alt={'banner'}></BannerPage>
-    <SectionMenu>
-        <h2>Burgers</h2>
-        <ListItem itemList={dbMenu.burger}
-                setOpenItem={setOpenItem}
-        />
-    </SectionMenu>
-    <SectionMenu>
-        <h2>Drinks</h2>
-        <ListItem itemList={dbMenu.other}
-        setOpenItem={setOpenItem}/>
-    </SectionMenu>
-</MenuStyled>
-);
+export const Menu = ({ setOpenItem }) => {
+    const res = useFetsh();
+    const dbMenu = res.response;
+
+    return (
+        <MenuStyled>
+            <BannerPage src={'./banners/banner.png'} alt={'banner'}></BannerPage>
+            {res.response ?
+                <>
+                    <SectionMenu>
+                        <h2>Burgers</h2>
+                        <ListItem itemList={dbMenu.burger}
+                            setOpenItem={setOpenItem}
+                        />
+                    </SectionMenu>
+                    <SectionMenu>
+                        <h2>Drinks</h2>
+                        <ListItem itemList={dbMenu.other}
+                            setOpenItem={setOpenItem} />
+                    </SectionMenu>
+                </> : res.error ? 
+                <div>Error</div> :
+                <div>Loading...</div>}
+        </MenuStyled>
+    )
+};
