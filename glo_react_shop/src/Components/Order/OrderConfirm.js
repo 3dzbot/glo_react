@@ -26,12 +26,13 @@ const rulesData = {
     choice: ['choice', item => item ? item : 'no choices'],
 }
 
-const sendOrder = (dataBase, orders, authentication) => {
+const sendOrder = (dataBase, orders, authentication, total) => {
     const newOrder = orders.map(projection(rulesData));
     dataBase.ref('orders').push().set({
         nameClient: authentication.displayName,
         email: authentication.email,
-        order: newOrder
+        order: newOrder,
+        cost: parcePrice(total)
     });
 }
 
@@ -55,7 +56,7 @@ export const OrderConfirm = () => {
                     <TotalPrice>{parcePrice(total)}</TotalPrice>
                 </Total>
                 <ButtonAdd onClick={()=>{
-                    sendOrder(dataBase, orders, authentication);
+                    sendOrder(dataBase, orders, authentication, total);
                     setOrders([]);
                     setOpenOrderConfirm(false);
                 }}>Подтвердить</ButtonAdd>
